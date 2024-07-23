@@ -1,30 +1,51 @@
-## Repositório Backend Weesu
 
-Este repositório possui a instalação e configuração inicial do projeto da API, já com o Editorconfig, ESLint e Prettier configurados.
-Caso queira utilizar outras configurações, fique a vontade.
+* Para rodar a api no seu sistema:
 
-## Rodando a aplicação no computador.
+1. Executar o comando: ```npm install```
+2. Executar as [migrações das tabelas] com o comando ```npm run migration:run``` executado no terminal na pasta do projeto.
+3. Para funcionar voce precisa alterar a propriedade ```host``` de 'db' para 'localhost' no arquivo ```/src/shared/infra/typeorm/index.ts```.
+4. Executar o comando: ```npm run dev```
+5. A api estará rodando em ```http://localhost:3333```
 
-Clone este repositório e instale no seu ambiente de desenvolvimento:
+## Como testar a api
 
-```
-git clone https://github.com/aluiziodeveloper/Backend.git api-vendas
-```
+* Você pode testar a api utilizando o Insomnia ou PostMan configurando as rotas e tokens. (Lembre-se de adicionar sua url de produção no arquivo openapi.yaml para poder testa-la em produção)
 
-Após clonar o conteúdo do repositório, acesse o diretório criado e efetue a instalação das dependências:
+## PostgreSQL
+```/src/shared/infra/typeorm/index.ts```.
+* Acessar o banco de dados com o usuario postgres e a senha docker e criar o banco de dados weesu.
 
-```
-cd backend
+* Rodar o comando de migrações do typeorm:
+```npm run migration:run```
+* Esse comando foi personalizado dentro de packge.json
 
-yarn
+## TypeORM
 
-# ou
+https://typeorm.io/
 
-npm install
-```
+* Definição das tabelas no TypeORM: As tabelas no TypeORM são configuradas através das entidades (entities). Essas entidades representam a estrutura das tabelas no banco de dados.
 
-Após essa instalação execute a aplicação com o comando `yarn dev` ou `npm run dev`. O servidor estará em rodando em `http://localhost:3333`.
+* Uso de repositórios para acessar entidades: Para interagir com essas entidades, você usa repositórios. Você pode obter um repositório de uma entidade com import { getRepository } from 'typeorm';.
 
-## Linkedin
+* Métodos disponíveis em repositórios: Com os repositórios, você pode realizar várias operações, como encontrar um registro com findOne(), salvar um novo registro com save(), atualizar registros com update(), entre outros métodos.
 
-[LinkedIn](https://www.linkedin.com/in/jorgealuizio/)
+* Criação de repositórios personalizados: É possível criar repositórios personalizados, onde você pode definir métodos específicos para suas necessidades.
+
+* Campos opcionais nas entidades: Por padrão, todos os campos nas entidades são obrigatórios. Para tornar um campo opcional, você deve adicionar a opção isNullable: true na configuração do campo.
+
+
+## Comandos CLI
+
+* Comando para criar uma migração com o TypeORM no TypeORM:
+```npm run typeorm migration:create NOMEDAMIGRAÇÂO```
+
+
+* Comando para executar migração no TypeORM no TypeORM:
+```npm run typeorm migration:run```
+
+
+* Comando para desfazer uma migração:
+```npm run typeorm migration:revert```
+
+* Comando para mostrar as migrações:
+```npm run typeorm migration:show```
